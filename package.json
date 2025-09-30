@@ -21,9 +21,9 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ainovatrend/website"
+    "url": "https://github.com/trthanhdo41/ainovatrend-website"
   },
-  "homepage": "https://ainovatrend.com",
+  "homepage": "https://ainovatrend-website.vercel.app",
   "devDependencies": {},
   "dependencies": {},
   "browserslist": [
