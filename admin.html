@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Redirect - AinovaTrend</title>
+    <script>
+        // Check authentication and redirect
+        function checkAuthAndRedirect() {
+            const token = localStorage.getItem('adminToken');
+            if (token) {
+                // Authenticated, go to dashboard
+                window.location.href = '/admin/index.html';
+            } else {
+                // Not authenticated, go to login
+                window.location.href = '/admin/login.html';
+            }
+        }
+        
+        // Run on page load
+        window.addEventListener('load', checkAuthAndRedirect);
+    </script>
+</head>
+<body>
+    <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h2>Redirecting to Admin Panel...</h2>
+        <p>Please wait...</p>
+    </div>
+</body>
+</html>

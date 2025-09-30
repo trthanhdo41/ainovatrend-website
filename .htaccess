@@ -1,0 +1,30 @@
+RewriteEngine On
+
+# Admin routing
+RewriteRule ^admin/?$ /admin/index.html [L]
+RewriteRule ^admin/login/?$ /admin/login.html [L]
+
+# Redirect admin without login to login page
+RewriteCond %{REQUEST_URI} ^/admin/?$
+RewriteCond %{HTTP_COOKIE} !adminToken
+RewriteRule ^admin/?$ /admin/login.html [R=302,L]
+
+# Handle 404 errors
+ErrorDocument 404 /404.html
+
+# Security headers
+Header always set X-Content-Type-Options nosniff
+Header always set X-Frame-Options DENY
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Cache control
+<FilesMatch "\.(css|js|png|jpg|jpeg|gif|ico|svg)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+</FilesMatch>
+
+<FilesMatch "\.(html|htm)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 hour"
+</FilesMatch>

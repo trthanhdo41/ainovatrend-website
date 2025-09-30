@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
+        xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://ainovatrend.com/</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ainovatrend.com/assets/images/og-image.jpg</image:loc>
+      <image:title>AinovaTrend - AI Software Reviews & Tech Insights</image:title>
+      <image:caption>Your trusted source for AI software reviews, tech insights, and industry analysis</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Review Page -->
+  <url>
+    <loc>https://ainovatrend.com/pages/review.html</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://ainovatrend.com/assets/images/og-review.jpg</image:loc>
+      <image:title>Software Reviews - AinovaTrend</image:title>
+      <image:caption>Expert analysis of 700+ AI tools and productivity software</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Blog Page -->
+  <url>
+    <loc>https://ainovatrend.com/pages/blog.html</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://ainovatrend.com/assets/images/og-blog.jpg</image:loc>
+      <image:title>AI Tech Blog - AinovaTrend</image:title>
+      <image:caption>Latest AI technology insights and software trends</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- About Page -->
+  <url>
+    <loc>https://ainovatrend.com/pages/about.html</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://ainovatrend.com/assets/images/og-about.jpg</image:loc>
+      <image:title>About Us - AinovaTrend</image:title>
+      <image:caption>Your trusted partner in AI software reviews and tech insights</image:caption>
+    </image:image>
+  </url>
+  
+  <!-- Contact Section -->
+  <url>
+    <loc>https://ainovatrend.com/#contact</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <!-- Individual Blog Posts (Examples) -->
+  <url>
+    <loc>https://ainovatrend.com/pages/blog.html#ai-tools-2024</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+    <image:image>
+      <image:loc>https://ainovatrend.com/assets/images/blog-ai-tools-2024.jpg</image:loc>
+      <image:title>Top AI Tools 2024 - Complete Guide</image:title>
+      <image:caption>Comprehensive review of the best AI tools for 2024</image:caption>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://ainovatrend.com/pages/blog.html#machine-learning-basics</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://ainovatrend.com/assets/images/blog-ml-basics.jpg</image:loc>
+      <image:title>Machine Learning vs Deep Learning</image:title>
+      <image:caption>Understanding the key differences between ML and DL</image:caption>
+    </image:image>
+  </url>
+  
+  <url>
+    <loc>https://ainovatrend.com/pages/blog.html#data-analytics-guide</loc>
+    <lastmod>2025-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+    <image:image>
+      <image:loc>https://ainovatrend.com/assets/images/blog-data-analytics.jpg</image:loc>
+      <image:title>Building a Data-Driven Culture</image:title>
+      <image:caption>5 essential steps to transform your organization</image:caption>
+    </image:image>
+  </url>
+  
+</urlset>
