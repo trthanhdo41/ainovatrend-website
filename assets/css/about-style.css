@@ -685,22 +685,30 @@ main {
 }
 
 /* New Styles for Updated Content */
-.mission-vision {
+.mission-vision-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 30px;
     margin-top: 30px;
     width: 100%;
 }
 
 .mission-item {
-    background: rgba(12, 12, 12, 0.8);
-    border: 2px solid rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.4);
     border-radius: 20px;
     padding: 35px;
     transition: all 0.4s ease;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.mission-icon {
+    font-size: 4rem;
+    text-align: center;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 8px rgba(255, 107, 53, 0.3));
 }
 
 .mission-item::before {
@@ -719,10 +727,10 @@ main {
 }
 
 .mission-item:hover {
-    border-color: rgba(255, 107, 53, 0.6);
+    border-color: rgba(255, 107, 53, 0.8);
     transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.2);
-    background: rgba(12, 12, 12, 0.9);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.2);
 }
 
 .mission-title {
@@ -753,23 +761,31 @@ main {
     text-align: center;
 }
 
-.workflow-grid {
+.workflow-2col {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 30px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
     margin-top: 40px;
     width: 100%;
 }
 
 .workflow-item {
-    background: rgba(12, 12, 12, 0.8);
-    border: 2px solid rgba(0, 150, 255, 0.3);
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.4);
     border-radius: 20px;
     padding: 30px;
     transition: all 0.4s ease;
     text-align: center;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.workflow-desc {
+    font-size: 1.4rem;
+    color: #cccccc;
+    line-height: 1.6;
+    margin: 0;
 }
 
 .workflow-item.scroll-animate {
@@ -799,10 +815,10 @@ main {
 }
 
 .workflow-item:hover {
-    border-color: rgba(255, 107, 53, 0.6);
+    border-color: rgba(255, 107, 53, 0.8);
     transform: translateY(-8px);
-    box-shadow: 0 15px 40px rgba(0, 150, 255, 0.2);
-    background: rgba(12, 12, 12, 0.9);
+    box-shadow: 0 15px 40px rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.2);
 }
 
 .workflow-icon {
@@ -904,23 +920,37 @@ main {
     font-size: 1.2rem;
 }
 
-.skills-grid {
+.skills-2col {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(2, 1fr);
     gap: 25px;
     margin-top: 40px;
     width: 100%;
 }
 
 .skill-category {
-    background: rgba(12, 12, 12, 0.8);
-    border: 2px solid rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.15);
+    border: 1px solid rgba(255, 107, 53, 0.4);
     border-radius: 15px;
     padding: 25px;
     transition: all 0.4s ease;
     text-align: center;
     position: relative;
     overflow: hidden;
+    backdrop-filter: blur(10px);
+}
+
+.skill-icon {
+    font-size: 3.5rem;
+    display: block;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 4px 8px rgba(255, 107, 53, 0.3));
+    transition: all 0.4s ease;
+}
+
+.skill-category:hover .skill-icon {
+    transform: scale(1.2) rotate(10deg);
+    filter: drop-shadow(0 8px 15px rgba(255, 107, 53, 0.5));
 }
 
 .skill-category::before {
@@ -939,10 +969,10 @@ main {
 }
 
 .skill-category:hover {
-    border-color: rgba(255, 107, 53, 0.6);
+    border-color: rgba(255, 107, 53, 0.8);
     transform: translateY(-5px);
-    box-shadow: 0 12px 35px rgba(255, 107, 53, 0.2);
-    background: rgba(12, 12, 12, 0.9);
+    box-shadow: 0 12px 35px rgba(255, 107, 53, 0.3);
+    background: rgba(255, 107, 53, 0.2);
 }
 
 .skill-category-title {
@@ -1131,6 +1161,13 @@ main {
 
 /* Mobile Responsive Design - Complete Redesign */
 @media (max-width: 768px) {
+    .mission-vision-grid,
+    .workflow-2col,
+    .skills-2col {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+    }
+    
     .footer__content {
         flex-direction: column;
         gap: 30px;
