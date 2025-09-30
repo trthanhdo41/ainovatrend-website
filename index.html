@@ -586,6 +586,7 @@
                     <!-- brand image right -->
                     <figure>
                         <img src="assets/images/logo.png" alt="Ainovatrend Logo" class="service__img">
+                        <figcaption class="logo-slogan">Smarter Tools. Better Growth</figcaption>
                     </figure>
                 </div>
             </div>
@@ -916,10 +917,10 @@
         window.addEventListener('load', () => {
             // Load fresh content from Google Sheets
             loadFreshContent();
-            // Animate 250,000
+            // Display Ainovatrend
             const counter1 = document.querySelector('.hero__heading .hero__highlight:nth-child(2)');
             if (counter1) {
-                animateCounter(counter1, 0, 250000, 2000);
+                counter1.textContent = 'Ainovatrend';
             }
 
             // Animate 700

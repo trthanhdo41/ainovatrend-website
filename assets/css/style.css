@@ -358,6 +358,29 @@ a {
   animation: gentleFloat 2.5s ease-in-out infinite;
 }
 
+.logo-slogan {
+  display: block;
+  text-align: center;
+  margin-top: 25px;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #ff6b35;
+  text-shadow: 0 0 20px rgba(255, 107, 53, 0.4);
+  letter-spacing: 1px;
+  animation: fadeInUp 1s ease-out 0.5s both;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 @keyframes gentleFloat {
   0%, 100% {
     transform: translateY(-20px) scale(1.1) rotate(-2deg);
