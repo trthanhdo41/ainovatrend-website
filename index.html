@@ -353,6 +353,90 @@
         textarea {
             border-color: rgba(255, 255, 255, 0.3) !important;
         }
+        
+        /* About Content Styles */
+        /* WHO WE ARE Section styles moved to style.css */
+        
+        /* Footer Styles */
+        .footer__content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .footer__logo .logo__img {
+            height: 50px;
+        }
+        
+        .footer__contact {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #cccccc;
+            font-size: 1.4rem;
+        }
+        
+        .contact-item i {
+            color: #ff6b35;
+            width: 20px;
+        }
+        
+        .footer__social {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .footer__social-btn {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            color: #ffffff;
+            font-size: 1.6rem;
+            transition: all 0.3s ease;
+        }
+        
+        .footer__social-btn:hover {
+            background: #ff6b35;
+            border-color: #ff6b35;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+        
+        .footer__bottom {
+            text-align: center;
+            padding: 20px 0;
+            color: #cccccc;
+            font-size: 1.4rem;
+        }
+        
+        @media (max-width: 768px) {
+            .footer__content {
+                flex-direction: column;
+                gap: 30px;
+                text-align: center;
+            }
+            
+            .footer__contact {
+                align-items: center;
+            }
+            
+            .contact-item {
+                justify-content: center;
+            }
+        }
     </style>
     
     <!-- Structured Data -->
@@ -434,10 +518,10 @@
         
         <!-- hero content -->
                 <section class="hero__content">
-            <h1 class="hero__heading">From <span class="hero__highlight">0</span> → <span class="hero__highlight">250,000</span> Monthly Readers in 12 Months.</h1>
-            <p class="hero__desc">Over <span class="hero__highlight">700</span><span class="hero__highlight">+</span> Software Reviewed & Counting...</p>
+            <h1 class="hero__heading">🚀 Discover the Best Digital Tools to Accelerate Your Growth with <span class="hero__highlight">Ainovatrend</span></h1>
+            <p class="hero__desc">At Ainovatrend, we review, compare, and recommend the most reliable digital products – from AI tools, marketing software, to productivity platforms – helping you work smarter and build sustainable online income.</p>
                     <div class="hero__row">
-                        <a href="pages/review.html" class="btn">REVIEW MY APP</a>
+                        <a href="pages/review.html" class="btn">Explore</a>
                     </div>
                 </section>
                 <!-- scroll indicator -->
@@ -450,32 +534,58 @@
 
     <!-- main -->
     <main>
-        <!-- My Story Section -->
+        <!-- Who We Are Section -->
         <section class="service">
             <div class="container">
-                <h2 class="service__heading section-heading">MY STORY IN 30 SECS</h2>
+                <h2 class="service__heading section-heading">WHO WE ARE</h2>
                 <div class="service__row">
-                    <!-- story left -->
+                    <!-- content left -->
                     <div class="service__list">
-                        <div class="story-chat">
-                            <div class="chat-bubble">Hi, I'm Fahim. Just your average Joe from Bangladesh 🇧🇩</div>
-                            <div class="chat-bubble">Started on Upwork in 2009 as an IT professional</div>
-                            <div class="chat-bubble">Started traveling in 2015, which changed everything!</div>
-                            <div class="chat-bubble chat-bubble--flags">🇸🇦 🇨🇳 🇲🇾 🇮🇳 🇹🇭 🇮🇩 ...</div>
-                            <div class="chat-bubble">Moved to Madinah in 2022 & started life as an expat.</div>
-                            <div class="chat-bubble">After 14 years of building businesses for others...</div>
-                            <div class="chat-bubble chat-bubble--blue">In 2023, I decided to build something of my own!</div>
-                            <div class="chat-bubble">At 35, starting over felt impossible. 😟</div>
-                            <div class="chat-bubble">But with my business partner, we did it anyway.</div>
-                            <div class="chat-bubble chat-bubble--orange">Thus, FahimAI was born! 🚀</div>
-                            <div class="chat-bubble chat-bubble--blue">One idea. One year. 250K monthly readers.</div>
-                            <div class="chat-bubble chat-bubble--orange">Over 3,600 articles published. 700+ tools reviewed.</div>
-                            <div class="chat-bubble">Looking forward to writing the next chapter! 😊</div>
+                        <div class="about-content">
+                            <div class="about-section scroll-animate">
+                                <h3 class="about-title">About Ainovatrend</h3>
+                                <p class="about-text">Ainovatrend is a digital-first affiliate platform that focuses on reviewing, comparing, and recommending top-rated digital products – from AI-powered tools, SaaS platforms, to online productivity solutions.</p>
+                                <p class="about-text">We are committed to helping individuals, freelancers, and businesses make smarter purchasing decisions by providing transparent, data-driven, and unbiased content.</p>
                             </div>
+                            
+                            <div class="about-section scroll-animate">
+                                <h3 class="about-title">Our Affiliate Principles</h3>
+                                <div class="principles-grid">
+                                    <div class="principle-item scroll-animate">
+                                        <div class="principle-icon">
+                                            <i class="fas fa-search"></i>
+                                        </div>
+                                        <h4>Transparency</h4>
+                                        <p>Every affiliate partnership is disclosed clearly. Readers know when we may earn a commission.</p>
+                                    </div>
+                                    <div class="principle-item scroll-animate">
+                                        <div class="principle-icon">
+                                            <i class="fas fa-balance-scale"></i>
+                                        </div>
+                                        <h4>Objectivity</h4>
+                                        <p>Reviews are based on hands-on testing and real user experiences. No "sponsored bias" – we highlight both strengths and weaknesses.</p>
+                                    </div>
+                                    <div class="principle-item scroll-animate">
+                                        <div class="principle-icon">
+                                            <i class="fas fa-bullseye"></i>
+                                        </div>
+                                        <h4>Relevance</h4>
+                                        <p>We only promote digital products that align with our audience's needs: AI tools, software, productivity platforms, and online services.</p>
+                                    </div>
+                                    <div class="principle-item scroll-animate">
+                                        <div class="principle-icon">
+                                            <i class="fas fa-lightbulb"></i>
+                                        </div>
+                                        <h4>Value-Driven Content</h4>
+                                        <p>Every review, tutorial, or comparison must provide practical insights that help users make informed decisions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <!-- story right -->
+                    <!-- brand image right -->
                     <figure>
-                        <img src="https://www.fahimai.com/wp-content/uploads/2025/09/Fahim-Joharder-copy.jpeg" alt="Fahim - Tech Entrepreneur" class="service__img">
+                        <img src="assets/images/logo.png" alt="Ainovatrend Logo" class="service__img">
                     </figure>
                 </div>
             </div>
@@ -543,41 +653,9 @@
     </section>
 
     <!-- footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer__top">
-                <!-- column 1 -->
-                <div class="footer__column">
-                    <!-- logo -->
-                    <a href="./" class="logo">
-                        <img src="assets/images/logo.png" alt="AinovaTrend Logo" class="logo__img">
-                    </a>
-                </div>
-                <!-- column 2 -->
-                <div class="footer__column">
-                    <div class="footer__links">
-                        <a href="#!" class="footer__link">PRIVACY POLICY</a>
-                        <a href="#!" class="footer__link">AFFILIATE DISCLOSURE</a>
-                        <a href="#!" class="footer__link">EDITORIAL GUIDELINES</a>
-                        <a href="#!" class="footer__link">TERMS OF SERVICE</a>
-                        <a href="#!" class="footer__link">SITEMAP</a>
-                    </div>
-                </div>
-                <!-- column 3 -->
-                <div class="footer__column">
-                    <div class="footer__social">
-                        <a href="#!" class="footer__social-btn"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#!" class="footer__social-btn"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#!" class="footer__social-btn"><i class="fab fa-twitter"></i></a>
-                        <a href="#!" class="footer__social-btn"><i class="fab fa-pinterest-p"></i></a>
-                        <a href="#!" class="footer__social-btn"><i class="fab fa-instagram"></i></a>
-                        <a href="#!" class="footer__social-btn"><i class="fab fa-youtube"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div id="footer-placeholder"></div>
 
+    <script src="./assets/js/load-footer.js"></script>
     <script src="./assets/js/api.js"></script>
     <script>
         // Store all blogs globally for modal access
@@ -782,7 +860,7 @@
         }, observerOptions);
 
         // Observe elements for scroll animations
-        const animatedElements = document.querySelectorAll('.work-item, .chat-bubble, .service__img');
+        const animatedElements = document.querySelectorAll('.work-item, .chat-bubble, .service__img, .about-section, .principle-item');
         animatedElements.forEach(el => {
             el.classList.add('scroll-animate');
             observer.observe(el);
