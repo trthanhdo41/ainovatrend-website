@@ -6,9 +6,7 @@
 class AinovaTrendAPI {
     constructor() {
         // Production URL - Vercel (working)
-        this.baseURL = 'https://backend-tawny-nine-24.vercel.app/api';
-        // New project name (not working yet)
-        // this.baseURL = 'https://ainovatrend-backend.vercel.app/api';
+        this.baseURL = 'https://ainovatrend-backend-d4l7o8kkv-mrdos-projects.vercel.app/api';
         // Local development URL
         //this.baseURL = 'http://localhost:3000/api';
     }
