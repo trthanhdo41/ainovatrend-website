@@ -1139,7 +1139,13 @@
                 reviews.forEach(r => {
                     try {
                         const cached = localStorage.getItem(`product_url_${r.id}`) || '';
-                        const href = r.product_url || r.link || cached || '';
+                        let href = r.product_url || r.link || cached || '';
+                        
+                        // Fix link format - add https:// if missing
+                        if (href && !href.startsWith('http://') && !href.startsWith('https://')) {
+                            href = 'https://' + href;
+                        }
+                        
                         if (href) {
                             r.product_url = r.product_url || href;
                             r.link = r.link || href;
@@ -1172,7 +1178,14 @@
                                     <td>${review.category || 'N/A'}</td>
                                     <td>${review.reviewer || 'N/A'}</td>
                                     <td>${review.review_date || 'N/A'}</td>
-                                    <td>${(() => { const cached = (function(){ try { return localStorage.getItem(`product_url_${review.id}`) || ''; } catch(e){ return ''; } })(); const href = review.product_url || review.link || cached; return href ? `<a href="${href}" target="_blank" rel="noopener noreferrer">Open</a>` : '' })()}</td>
+                                    <td>${(() => { const cached = (function(){ try { return localStorage.getItem(`product_url_${review.id}`) || ''; } catch(e){ return ''; } })(); let href = review.product_url || review.link || cached; 
+                                    
+                                    // Fix link format - add https:// if missing
+                                    if (href && !href.startsWith('http://') && !href.startsWith('https://')) {
+                                        href = 'https://' + href;
+                                    }
+                                    
+                                    return href ? `<a href="${href}" target="_blank" rel="noopener noreferrer">Open</a>` : '' })()}</td>
                                     <td><span class="status-badge status-${review.status?.toLowerCase() || 'draft'}">${review.status || 'Draft'}</span></td>
                                     <td>
                                         <button class="btn btn-primary" onclick="editReview(${review.id})" style="margin-right: 5px;">
