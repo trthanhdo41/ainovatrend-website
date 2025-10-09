@@ -1,0 +1,268 @@
+/* ============== REVIEW PAGE STYLES ================= */
+
+/* Background */
+body {
+    background: #0c0c0c !important;
+    color: #ffffff !important;
+}
+
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(12, 12, 12, 0.9), rgba(26, 26, 26, 0.85)), 
+                url('https://hgwconsult.com.au/wp-content/uploads/2023/10/Tech-Titans-How-Tech-Companies-Fuel-Global-Economic-Growth.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    z-index: -1;
+}
+
+/* Header Background Override */
+.header {
+    background: transparent !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Search Bar */
+.reviews__search {
+    max-width: 600px;
+    margin: 0 auto 40px;
+    position: relative;
+}
+
+.search-input {
+    width: 100%;
+    padding: 15px 50px 15px 20px;
+    border: 2px solid rgba(0, 150, 255, 0.2);
+    border-radius: 25px;
+    font-size: 1.6rem;
+    background: rgba(12, 12, 12, 0.8);
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #ff6b35;
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.search-btn {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #ff6b35;
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    background: #e55a2b;
+    transform: translateY(-50%) scale(1.05);
+}
+
+/* Filter Tags */
+.reviews__tags {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+.tag-btn {
+    padding: 10px 20px;
+    background: rgba(12, 12, 12, 0.8);
+    color: #fff;
+    border: 2px solid rgba(0, 150, 255, 0.2);
+    border-radius: 20px;
+    font-size: 1.4rem;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.tag-btn:hover {
+    background: #ff6b35;
+    color: #fff;
+    border-color: #ff6b35;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+.tag-btn--active {
+    background: #ff6b35;
+    color: #fff;
+    border-color: #ff6b35;
+    box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+}
+
+/* Review Cards - Enhanced Padding */
+.review-card {
+    background: rgba(12, 12, 12, 0.8) !important;
+    border: 1px solid rgba(0, 150, 255, 0.2) !important;
+    border-radius: 15px !important;
+    box-shadow: 
+        0 8px 25px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(0, 150, 255, 0.1) !important;
+    transition: all 0.3s ease !important;
+    backdrop-filter: blur(10px) !important;
+    padding: 30px !important;
+    margin-bottom: 30px !important;
+}
+
+.review-card:hover {
+    transform: translateY(-8px) !important;
+    box-shadow: 
+        0 15px 40px rgba(0, 150, 255, 0.2),
+        0 0 30px rgba(0, 150, 255, 0.1) !important;
+    border-color: rgba(0, 150, 255, 0.4) !important;
+}
+
+.review-card .work-item__content {
+    padding: 20px 0 !important;
+}
+
+.review-card .work-item__heading {
+    color: #ffffff !important;
+    font-size: 1.8rem !important;
+    font-weight: 600 !important;
+    line-height: 1.4 !important;
+    margin-bottom: 15px !important;
+}
+
+.review-card .work-item__desc {
+    color: #cccccc !important;
+    font-size: 1.4rem !important;
+    line-height: 1.6 !important;
+    margin-bottom: 20px !important;
+}
+
+/* Review Meta */
+.review-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.review-date {
+    color: #999999;
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+.review-rating {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.review-rating i {
+    color: #ffd700;
+    font-size: 1.4rem;
+}
+
+.review-rating i.far {
+    color: #666666;
+}
+
+.rating-text {
+    color: #cccccc;
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-left: 8px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Stats Grid Mobile - Square Layout */
+    .hero__stats-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 15px !important;
+        margin-top: 30px !important;
+        margin-bottom: 70px !important;
+        max-width: 300px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+    }
+    
+    .hero__stat-card {
+        aspect-ratio: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        text-align: center !important;
+        padding: 15px !important;
+    }
+    
+    .reviews__search {
+        margin-bottom: 30px;
+    }
+    
+    .search-input {
+        padding: 12px 45px 12px 15px;
+        font-size: 1.4rem;
+    }
+    
+    .search-btn {
+        padding: 8px 15px;
+    }
+    
+    .reviews__tags {
+        gap: 10px;
+        margin-bottom: 40px;
+    }
+    
+    .tag-btn {
+        padding: 8px 16px;
+        font-size: 1.2rem;
+    }
+    
+    .review-card {
+        padding: 20px !important;
+    }
+    
+    .review-card .work-item__content {
+        padding: 15px 0 !important;
+    }
+    
+    .review-card .work-item__heading {
+        font-size: 1.6rem !important;
+    }
+    
+    .review-meta {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .reviews__tags {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .tag-btn {
+        width: 100%;
+        max-width: 200px;
+        text-align: center;
+    }
+}

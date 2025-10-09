@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AinovaTrend Admin Panel</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #0c0c0c;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(12, 12, 12, 0.8), rgba(30, 30, 30, 0.9));
+            z-index: -1;
+        }
+
+        /* Animated dots giống index.html */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 20% 80%, rgba(255, 107, 53, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(74, 144, 226, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 107, 53, 0.05) 0%, transparent 50%);
+            animation: float 20s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(10px) rotate(-1deg); }
+        }
+
+        /* Admin Header */
+        .admin-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: rgba(12, 12, 12, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 107, 53, 0.3);
+            height: 70px;
+        }
+
+        .admin-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            height: 100%;
+        }
+
+        .admin-logo a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 12px;
+        }
+
+        .admin-logo img {
+            height: 35px;
+        }
+
+        .admin-logo span {
+            color: #ffffff;
+            font-size: 1.25rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff6b35, #4a90e2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .admin-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .view-site-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(255, 107, 53, 0.1);
+            color: #ff6b35;
+            text-decoration: none;
+            border-radius: 6px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .view-site-btn:hover {
+            background: rgba(255, 107, 53, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .admin-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background: rgba(12, 12, 12, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+            border-right: 1px solid rgba(255, 107, 53, 0.3);
+        }
+
+        .sidebar h2 {
+            color: white;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .nav-menu {
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-bottom: 10px;
+        }
+
+        .nav-menu a {
+            display: block;
+            padding: 12px 15px;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.2), rgba(74, 144, 226, 0.2));
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background: rgba(20, 20, 20, 0.9);
+            margin: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .header h1 {
+            color: #ffffff;
+            background: linear-gradient(135deg, #ff6b35, #4a90e2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .logout-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: #ff3742;
+            transform: translateY(-2px);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .stat-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(15px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 35px rgba(255, 107, 53, 0.3);
+            border-color: rgba(255, 107, 53, 0.6);
+        }
+
+        .stat-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            flex-shrink: 0;
+        }
+
+        .stat-card-reviews .stat-icon {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+            color: #fff;
+        }
+
+        .stat-card-blogs .stat-icon {
+            background: linear-gradient(135deg, #4a90e2, #5ba3f5);
+            color: #fff;
+        }
+
+        .stat-card-messages .stat-icon {
+            background: linear-gradient(135deg, #50c878, #6dd98a);
+            color: #fff;
+        }
+
+        .stat-card-published .stat-icon {
+            background: linear-gradient(135deg, #9b59b6, #b370cf);
+            color: #fff;
+        }
+
+        .stat-info {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .stat-label {
+            color: #aaa;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .stat-trend {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 1.2rem;
+            color: #50c878;
+            margin-top: 8px;
+        }
+
+        .stat-trend i {
+            font-size: 1rem;
+        }
+
+        /* Dashboard Row */
+        .dashboard-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .dashboard-card {
+            background: rgba(20, 20, 20, 0.8);
+            border: 2px solid rgba(255, 107, 53, 0.2);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+        }
+
+        .dashboard-card h3 {
+            color: #ffffff;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .dashboard-card h3 i {
+            color: #ff6b35;
+        }
+
+        /* Recent Activity */
+        .activity-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+
+        .activity-item:hover {
+            background: rgba(255, 107, 53, 0.1);
+            transform: translateX(5px);
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .activity-icon.review {
+            background: linear-gradient(135deg, #ff6b35, #ff8c42);
+        }
+
+        .activity-icon.blog {
+            background: linear-gradient(135deg, #4a90e2, #5ba3f5);
+        }
+
+        .activity-icon.message {
+            background: linear-gradient(135deg, #50c878, #6dd98a);
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-title {
+            color: #ffffff;
+            font-size: 1.4rem;
+            margin-bottom: 3px;
+        }
+
+        .activity-time {
+            color: #888;
+            font-size: 1.2rem;
+        }
+
+        /* Quick Actions */
+        .quick-actions-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .quick-action-btn {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.15), rgba(74, 144, 226, 0.15));
+            border: 2px solid rgba(255, 107, 53, 0.3);
+            color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.4rem;
+            font-weight: 500;
+        }
+
+        .quick-action-btn:hover {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.25), rgba(74, 144, 226, 0.25));
+            border-color: rgba(255, 107, 53, 0.6);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .quick-action-btn i {
+            font-size: 2.4rem;
+            color: #ff6b35;
+        }
+
+        /* Content Distribution */
+        .content-distribution {
+            grid-column: 1 / -1;
+        }
+
+        .distribution-grid {
+            display: grid;
+            gap: 15px;
+        }
+
+        .distribution-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .distribution-bar {
+            height: 40px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .distribution-bar::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 0;
+            background: linear-gradient(90deg, #ff6b35, #ff8c42);
+            border-radius: 20px;
+            transition: width 1s ease;
+        }
+
+        .distribution-label {
+            display: flex;
+            justify-content: space-between;
+            color: #ffffff;
+            font-size: 1.4rem;
+        }
+
+        .distribution-label span:last-child {
+            color: #ff6b35;
+            font-weight: 600;
+        }
+
+        @media (max-width: 1200px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .section {
+            margin-bottom: 40px;
+        }
+
+        .section h3 {
+            color: #ffffff;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ff6b35;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 107, 53, 0.2);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        .data-table th {
+            background: linear-gradient(135deg, #ff6b35, #4a90e2);
+            color: white;
+            font-weight: 600;
+        }
+
+        .data-table td {
+            color: #ffffff;
+            border-bottom: 1px solid rgba(255, 107, 53, 0.1);
+        }
+
+        .data-table tr:hover {
+            background: rgba(255, 107, 53, 0.1);
+        }
+
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-danger {
+            background: #ff4757;
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #ff5722, #3f51b5);
+            box-shadow: 0 10px 20px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: #ff3742;
+            box-shadow: 0 10px 20px rgba(255, 71, 87, 0.3);
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+
+        .status-published {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status-draft {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-new {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+
+        @media (max-width: 768px) {
+            .admin-container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+            
+            .main-content {
+                margin: 0;
+                border-radius: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-logo">
+                <a href="../index.html" target="_blank">
+                    <img src="../assets/images/logo.png" alt="AinovaTrend">
+                    <span>AinovaTrend Admin</span>
+                </a>
+            </div>
+            <div class="admin-actions">
+                <a href="../index.html" target="_blank" class="view-site-btn">
+                    <i class="fas fa-external-link-alt"></i> View Site
+                </a>
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="admin-container" style="margin-top: 80px;">
+        <div class="sidebar">
+            <h2><i class="fas fa-cog"></i> Admin Panel</h2>
+            <ul class="nav-menu">
+                <li><a href="#" class="nav-link active" data-section="dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-section="reviews"><i class="fas fa-star"></i> Reviews</a></li>
+                <li><a href="#" class="nav-link" data-section="blogs"><i class="fas fa-blog"></i> Blog Posts</a></li>
+                <li><a href="#" class="nav-link" data-section="messages"><i class="fas fa-envelope"></i> Messages</a></li>
+                <li><a href="../index.html" onclick="window.open('../index.html', '_blank')" class="nav-link"><i class="fas fa-home"></i> Back to Home</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+
+            <!-- Dashboard Section -->
+            <div id="dashboard" class="section">
+                <h2 style="margin-bottom: 30px; color: #ffffff; display: flex; align-items: center; gap: 10px;">
+                    <i class="fas fa-chart-line"></i> Dashboard Overview
+                </h2>
+                
+                <!-- Stats Cards -->
+                <div class="stats-grid">
+                    <div class="stat-card stat-card-reviews">
+                        <div class="stat-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="totalReviews">-</div>
+                            <div class="stat-label">Total Reviews</div>
+                            <div class="stat-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="reviewsTrend">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card stat-card-blogs">
+                        <div class="stat-icon">
+                            <i class="fas fa-blog"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="totalBlogs">-</div>
+                            <div class="stat-label">Blog Posts</div>
+                            <div class="stat-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="blogsTrend">-</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card stat-card-messages">
+                        <div class="stat-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="stat-info">
+                            <div class="stat-number" id="totalMessages">-</div>
+                            <div class="stat-label">Messages</div>
+                            <div class="stat-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span id="messagesTrend">New!</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="dashboard-card recent-activity" style="margin-bottom: 30px;">
+                    <h3><i class="fas fa-history"></i> Recent Activity</h3>
+                    <div id="recentActivity">
+                        <div class="loading">Loading activity...</div>
+                    </div>
+                </div>
+                
+                <!-- Content Distribution -->
+                <div class="dashboard-card content-distribution">
+                    <h3><i class="fas fa-chart-pie"></i> Content Distribution</h3>
+                    <div class="distribution-grid">
+                        <div class="distribution-item">
+                            <div class="distribution-bar" id="reviewsBar"></div>
+                            <div class="distribution-label">
+                                <span>Reviews</span>
+                                <span id="reviewsPercent">-</span>
+                            </div>
+                        </div>
+                        <div class="distribution-item">
+                            <div class="distribution-bar" id="blogsBar"></div>
+                            <div class="distribution-label">
+                                <span>Blogs</span>
+                                <span id="blogsPercent">-</span>
+                            </div>
+                        </div>
+                        <div class="distribution-item">
+                            <div class="distribution-bar" id="messagesBar"></div>
+                            <div class="distribution-label">
+                                <span>Messages</span>
+                                <span id="messagesPercent">-</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reviews Section -->
+            <div id="reviews" class="section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>Latest Reviews</h3>
+                    <button class="btn btn-primary" onclick="showAddReviewModal()">
+                        <i class="fas fa-plus"></i> Add Review
+                    </button>
+                </div>
+                <div id="reviewsContent">
+                    <div class="loading">Loading reviews...</div>
+                </div>
+            </div>
+
+            <!-- Blogs Section -->
+            <div id="blogs" class="section" style="display: none;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h3>Blog Posts</h3>
+                    <button class="btn btn-primary" onclick="showAddBlogModal()">
+                        <i class="fas fa-plus"></i> Add Blog
+                    </button>
+                </div>
+                <div id="blogsContent">
+                    <div class="loading">Loading blog posts...</div>
+                </div>
+            </div>
+
+            <!-- Messages Section -->
+            <div id="messages" class="section" style="display: none;">
+                <h3>Contact Messages</h3>
+                <div id="messagesContent">
+                    <div class="loading">Loading messages...</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div id="modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <div id="modalBody"></div>
+        </div>
+    </div>
+
+    <style>
+        /* Toast Notification Styles */
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 3000;
+            min-width: 300px;
+            padding: 16px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease-in-out;
+            backdrop-filter: blur(10px);
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast.success {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            border-left: 4px solid #2E7D32;
+        }
+
+        .toast.error {
+            background: linear-gradient(135deg, #f44336, #d32f2f);
+            border-left: 4px solid #c62828;
+        }
+
+        .toast.info {
+            background: linear-gradient(135deg, #2196F3, #1976D2);
+            border-left: 4px solid #1565C0;
+        }
+
+        .toast-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .toast-icon {
+            font-size: 20px;
+        }
+
+        .toast-message {
+            flex: 1;
+        }
+
+        .toast-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .toast-close:hover {
+            opacity: 1;
+        }
+
+        .modal {
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            background: rgba(20, 20, 20, 0.95);
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 15px;
+            width: 80%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-content::-webkit-scrollbar-track {
+            background: rgba(30, 30, 30, 0.5);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(255, 107, 53, 0.5);
+            border-radius: 10px;
+        }
+
+        .modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 107, 53, 0.7);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover {
+            color: #ff6b35;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #ffffff;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 5px;
+            background: rgba(30, 30, 30, 0.8);
+            color: #ffffff;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #ff6b35;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+    </style>
+
+    <script src="../assets/js/api.js"></script>
+    <script>
+        // Check authentication
+        function checkAuth() {
+            const token = localStorage.getItem('adminToken');
+            if (!token) {
+                window.location.href = 'login.html';
+                return;
+            }
+        }
+
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminToken');
+                window.location.href = '../index.html';
+            }
+        }
+
+        // Navigation
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                // Hide all sections
+                document.querySelectorAll('.section').forEach(section => {
+                    section.style.display = 'none';
+                });
+                
+                // Show selected section
+                const sectionId = link.getAttribute('data-section');
+                document.getElementById(sectionId).style.display = 'block';
+                
+                // Load section data
+                loadSectionData(sectionId);
+            });
+        });
+
+        // Load section data
+        async function loadSectionData(section) {
+            try {
+                switch (section) {
+                    case 'dashboard':
+                        await loadDashboard();
+                        break;
+                    case 'reviews':
+                        await loadReviews();
+                        break;
+                    case 'blogs':
+                        await loadBlogs();
+                        break;
+                    case 'messages':
+                        await loadMessages();
+                        break;
+                }
+            } catch (error) {
+                console.error('Error loading section data:', error);
+            }
+        }
+
+        // Load dashboard stats
+        async function loadDashboard() {
+            try {
+                const [reviews, blogs, messages] = await Promise.all([
+                    ainovaTrendAPI.getReviews(),
+                    ainovaTrendAPI.getBlogs(),
+                    ainovaTrendAPI.getMessages()
+                ]);
+
+                // Update counts
+                document.getElementById('totalReviews').textContent = reviews.length;
+                document.getElementById('totalBlogs').textContent = blogs.length;
+                document.getElementById('totalMessages').textContent = messages.length;
+                
+                // Calculate published items
+                const publishedReviews = reviews.filter(r => r.status === 'Published').length;
+                const publishedBlogs = blogs.filter(b => b.status === 'Published').length;
+                
+                // Update trends
+                document.getElementById('reviewsTrend').textContent = `${publishedReviews} Published`;
+                document.getElementById('blogsTrend').textContent = `${publishedBlogs} Published`;
+                
+                // Load recent activity
+                loadRecentActivity(reviews, blogs, messages);
+                
+                // Load content distribution
+                loadContentDistribution(reviews.length, blogs.length, messages.length);
+                
+            } catch (error) {
+                console.error('Error loading dashboard:', error);
+            }
+        }
+        
+        // Load recent activity
+        function loadRecentActivity(reviews, blogs, messages) {
+            const container = document.getElementById('recentActivity');
+            const activities = [];
+            
+            // Get latest 5 reviews
+            reviews.slice(-5).reverse().forEach(review => {
+                activities.push({
+                    type: 'review',
+                    icon: 'fa-star',
+                    title: review.software_name || 'New Review',
+                    time: review.review_date || 'Recently',
+                    class: 'review'
+                });
+            });
+            
+            // Get latest 5 blogs  
+            blogs.slice(-5).reverse().forEach(blog => {
+                activities.push({
+                    type: 'blog',
+                    icon: 'fa-blog',
+                    title: blog.title || 'New Blog Post',
+                    time: blog.publish_date || 'Recently',
+                    class: 'blog'
+                });
+            });
+            
+            // Get latest 3 messages
+            messages.slice(-3).reverse().forEach(msg => {
+                activities.push({
+                    type: 'message',
+                    icon: 'fa-envelope',
+                    title: `Message from ${msg.name || 'User'}`,
+                    time: msg.submit_date || 'Recently',
+                    class: 'message'
+                });
+            });
+            
+            // Sort by time and get latest 8
+            const latestActivities = activities.slice(0, 8);
+            
+            if (latestActivities.length === 0) {
+                container.innerHTML = '<div class="loading">No recent activity</div>';
+                return;
+            }
+            
+            container.innerHTML = latestActivities.map(activity => `
+                <div class="activity-item">
+                    <div class="activity-icon ${activity.class}">
+                        <i class="fas ${activity.icon}"></i>
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+        
+        // Load content distribution
+        function loadContentDistribution(reviewsCount, blogsCount, messagesCount) {
+            const total = reviewsCount + blogsCount + messagesCount;
+            
+            if (total === 0) return;
+            
+            const reviewsPercent = ((reviewsCount / total) * 100).toFixed(1);
+            const blogsPercent = ((blogsCount / total) * 100).toFixed(1);
+            const messagesPercent = ((messagesCount / total) * 100).toFixed(1);
+            
+            // Update percentages
+            document.getElementById('reviewsPercent').textContent = `${reviewsPercent}%`;
+            document.getElementById('blogsPercent').textContent = `${blogsPercent}%`;
+            document.getElementById('messagesPercent').textContent = `${messagesPercent}%`;
+            
+            // Animate bars
+            setTimeout(() => {
+                document.getElementById('reviewsBar').style.setProperty('--width', `${reviewsPercent}%`);
+                document.getElementById('blogsBar').style.setProperty('--width', `${blogsPercent}%`);
+                document.getElementById('messagesBar').style.setProperty('--width', `${messagesPercent}%`);
+                
+                document.getElementById('reviewsBar').style.background = `linear-gradient(90deg, #ff6b35 0%, #ff8c42 ${reviewsPercent}%)`;
+                document.getElementById('reviewsBar').style.width = `${reviewsPercent}%`;
+                
+                document.getElementById('blogsBar').style.background = `linear-gradient(90deg, #4a90e2 0%, #5ba3f5 ${blogsPercent}%)`;
+                document.getElementById('blogsBar').style.width = `${blogsPercent}%`;
+                
+                document.getElementById('messagesBar').style.background = `linear-gradient(90deg, #50c878 0%, #6dd98a ${messagesPercent}%)`;
+                document.getElementById('messagesBar').style.width = `${messagesPercent}%`;
+            }, 300);
+        }
+
+        // Load reviews
+        async function loadReviews() {
+            try {
+                const reviews = await ainovaTrendAPI.getReviews();
+                const content = document.getElementById('reviewsContent');
+                
+                if (reviews.length === 0) {
+                    content.innerHTML = '<div class="loading">No reviews found</div>';
+                    return;
+                }
+                reviews.forEach(r => {
+                    try {
+                        const cached = localStorage.getItem(`product_url_${r.id}`) || '';
+                        const href = r.product_url || r.link || cached || '';
+                        if (href) {
+                            r.product_url = r.product_url || href;
+                            r.link = r.link || href;
+                        }
+                    } catch (e) {}
+                });
+                const table = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Software Name</th>
+                                <th>Rating</th>
+                                <th>Price</th>
+                                <th>Category</th>
+                                <th>Reviewer</th>
+                                <th>Date</th>
+                                <th>Link</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${reviews.map(review => `
+                                <tr>
+                                    <td>${review.id}</td>
+                                    <td>${review.software_name || 'N/A'}</td>
+                                    <td>${review.rating || 'N/A'}</td>
+                                    <td>${review.price || 'N/A'}</td>
+                                    <td>${review.category || 'N/A'}</td>
+                                    <td>${review.reviewer || 'N/A'}</td>
+                                    <td>${review.review_date || 'N/A'}</td>
+                                    <td>${(() => { const cached = (function(){ try { return localStorage.getItem(`product_url_${review.id}`) || ''; } catch(e){ return ''; } })(); const href = review.product_url || review.link || cached; return href ? `<a href="${href}" target="_blank" rel="noopener noreferrer">Open</a>` : '' })()}</td>
+                                    <td><span class="status-badge status-${review.status?.toLowerCase() || 'draft'}">${review.status || 'Draft'}</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="editReview(${review.id})" style="margin-right: 5px;">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                        <button class="btn btn-danger" onclick="deleteReview(${review.id})">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                content.innerHTML = table;
+            } catch (error) {
+                document.getElementById('reviewsContent').innerHTML = '<div class="error">Error loading reviews</div>';
+            }
+        }
+
+        // Load blogs
+        async function loadBlogs() {
+            try {
+                const blogs = await ainovaTrendAPI.getBlogs();
+                const content = document.getElementById('blogsContent');
+                
+                if (blogs.length === 0) {
+                    content.innerHTML = '<div class="loading">No blog posts found</div>';
+                    return;
+                }
+
+                const table = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Author</th>
+                                <th>Category</th>
+                                <th>Date</th>
+                                <th>Read Time</th>
+                                <th>Featured</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${blogs.map(blog => `
+                                <tr>
+                                    <td>${blog.id}</td>
+                                    <td>${blog.title || 'N/A'}</td>
+                                    <td>${blog.author || 'N/A'}</td>
+                                    <td>${blog.category || 'N/A'}</td>
+                                    <td>${blog.publish_date || 'N/A'}</td>
+                                    <td>${blog.read_time ? blog.read_time + ' min' : 'N/A'}</td>
+                                    <td>${blog.featured === 'TRUE' ? '⭐ Yes' : 'No'}</td>
+                                    <td><span class="status-badge status-${blog.status?.toLowerCase() || 'draft'}">${blog.status || 'Draft'}</span></td>
+                                    <td>
+                                        <button class="btn btn-primary" onclick="editBlog(${blog.id})" style="margin-right: 5px;">
+                                            <i class="fas fa-edit"></i> Edit
+                                        </button>
+                                        <button class="btn btn-danger" onclick="deleteBlog(${blog.id})">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                content.innerHTML = table;
+            } catch (error) {
+                document.getElementById('blogsContent').innerHTML = '<div class="error">Error loading blog posts</div>';
+            }
+        }
+
+        // Load messages
+        async function loadMessages() {
+            try {
+                const messages = await ainovaTrendAPI.getMessages();
+                const content = document.getElementById('messagesContent');
+                
+                if (messages.length === 0) {
+                    content.innerHTML = '<div class="loading">No messages found</div>';
+                    return;
+                }
+
+                const table = `
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Email</th>
+                                <th>Subject</th>
+                                <th>Message</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${messages.map(message => `
+                                <tr>
+                                    <td>${message.id}</td>
+                                    <td>${message.name || 'N/A'}</td>
+                                    <td>${message.email || 'N/A'}</td>
+                                    <td>${message.subject || 'N/A'}</td>
+                                    <td>${message.message ? (message.message.substring(0, 50) + '...') : 'N/A'}</td>
+                                    <td>${message.submit_date || 'N/A'}</td>
+                                    <td><span class="status-badge status-${message.status?.toLowerCase() || 'new'}">${message.status || 'New'}</span></td>
+                                    <td>
+                                        <button class="btn btn-danger" onclick="deleteMessage(${message.id})">
+                                            <i class="fas fa-trash"></i> Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                `;
+                
+                content.innerHTML = table;
+            } catch (error) {
+                document.getElementById('messagesContent').innerHTML = '<div class="error">Error loading messages</div>';
+            }
+        }
+
+        // Delete functions
+        async function deleteReview(id) {
+            if (confirm('Are you sure you want to delete this review?')) {
+                try {
+                    await ainovaTrendAPI.deleteReview(id);
+                    loadReviews();
+                } catch (error) {
+                    showToast('Error deleting review', 'error');
+                }
+            }
+        }
+
+        async function deleteBlog(id) {
+            if (confirm('Are you sure you want to delete this blog post?')) {
+                try {
+                    await ainovaTrendAPI.deleteBlog(id);
+                    loadBlogs();
+                } catch (error) {
+                    showToast('Error deleting blog post', 'error');
+                }
+            }
+        }
+
+        async function deleteMessage(id) {
+            if (confirm('Are you sure you want to delete this message?')) {
+                try {
+                    await ainovaTrendAPI.deleteMessage(id);
+                    loadMessages();
+                } catch (error) {
+                    showToast('Error deleting message', 'error');
+                }
+            }
+        }
+
+        // Modal functions
+        function showModal(title, content) {
+            document.getElementById('modalBody').innerHTML = `
+                <h2 style="color: #ff6b35; margin-bottom: 20px;">${title}</h2>
+                ${content}
+            `;
+            document.getElementById('modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal').style.display = 'none';
+        }
+
+        // Add Review Modal
+        function showAddReviewModal() {
+            const form = `
+                <form id="reviewForm">
+                    <div class="form-group">
+                        <label>Software Name *</label>
+                        <input type="text" name="software_name" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Description *</label>
+                        <textarea name="description" rows="3" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Rating (1-5) *</label>
+                        <input type="number" name="rating" min="1" max="5" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="text" name="price" placeholder="e.g., $20/month, Free">
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="AI Tools">AI Tools</option>
+                            <option value="AI Marketing">AI Marketing</option>
+                            <option value="AI">AI</option>
+                            <option value="Productivity">Productivity</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Business">Business</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Analytics">Analytics</option>
+                            <option value="Customer Service">Customer Service</option>
+                            <option value="SEO">SEO</option>
+                            <option value="E-commerce">E-commerce</option>
+                            <option value="Content Marketing">Content Marketing</option>
+                            <option value="Future of Work">Future of Work</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Pros</label>
+                        <textarea name="pros" rows="2" placeholder="Separate with commas"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Cons</label>
+                        <textarea name="cons" rows="2" placeholder="Separate with commas"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" name="image_url" placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label>Product URL</label>
+                        <input type="url" name="product_url" placeholder="https://example.com/product">
+                    </div>
+                    <div class="form-group">
+                        <label>Reviewer</label>
+                        <input type="text" name="reviewer" value="AinovaTrend Team">
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status">
+                            <option value="Published">Published</option>
+                            <option value="Draft">Draft</option>
+                        </select>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn btn-primary" onclick="saveReview()">Save</button>
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #666;">Cancel</button>
+                    </div>
+                </form>
+            `;
+            showModal('Add New Review', form);
+        }
+
+        // Add Blog Modal
+        function showAddBlogModal() {
+            const form = `
+                <form id="blogForm">
+                    <div class="form-group">
+                        <label>Title *</label>
+                        <input type="text" name="title" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Excerpt *</label>
+                        <textarea name="excerpt" rows="2" placeholder="Short summary" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Content *</label>
+                        <textarea name="content" rows="5" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Image URL</label>
+                        <input type="url" name="image_url" placeholder="https://example.com/image.jpg">
+                    </div>
+                    <div class="form-group">
+                        <label>Category *</label>
+                        <select name="category" required>
+                            <option value="">Select Category</option>
+                            <option value="AI Tools">AI Tools</option>
+                            <option value="AI Marketing">AI Marketing</option>
+                            <option value="AI">AI</option>
+                            <option value="Productivity">Productivity</option>
+                            <option value="Marketing">Marketing</option>
+                            <option value="Business">Business</option>
+                            <option value="Technology">Technology</option>
+                            <option value="Social Media">Social Media</option>
+                            <option value="Analytics">Analytics</option>
+                            <option value="Customer Service">Customer Service</option>
+                            <option value="SEO">SEO</option>
+                            <option value="E-commerce">E-commerce</option>
+                            <option value="Content Marketing">Content Marketing</option>
+                            <option value="Future of Work">Future of Work</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Author</label>
+                        <input type="text" name="author" value="AinovaTrend Team">
+                    </div>
+                    <div class="form-group">
+                        <label>Tags</label>
+                        <input type="text" name="tags" placeholder="Separate with commas">
+                    </div>
+                    <div class="form-group">
+                        <label>Featured</label>
+                        <select name="featured">
+                            <option value="FALSE">No</option>
+                            <option value="TRUE">Yes</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Status</label>
+                        <select name="status">
+                            <option value="Published">Published</option>
+                            <option value="Draft">Draft</option>
+                        </select>
+                    </div>
+                    <div class="modal-buttons">
+                        <button type="button" class="btn btn-primary" onclick="saveBlog()">Save</button>
+                        <button type="button" class="btn" onclick="closeModal()" style="background: #666;">Cancel</button>
+                    </div>
+                </form>
+            `;
+            showModal('Add New Blog Post', form);
+        }
+
+        // Save functions
+        async function saveReview() {
+            const form = document.getElementById('reviewForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            const rawUrl = (data.product_url || '').trim();
+            if (rawUrl) { data.product_url = rawUrl; data.link = rawUrl; try { localStorage.setItem(`product_url_${currentEditId}`, rawUrl); } catch(e) {} } else { try { localStorage.removeItem(`product_url_${currentEditId}`); } catch(e) {} }
+            
+            try {
+                await ainovaTrendAPI.addReview(data);
+                closeModal();
+                loadReviews();
+                showToast('Review added successfully!', 'success');
+            } catch (error) {
+                showToast('Error adding review', 'error');
+            }
+        }
+
+        async function saveBlog() {
+            const form = document.getElementById('blogForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                await ainovaTrendAPI.addBlog(data);
+                closeModal();
+                loadBlogs();
+                showToast('Blog post added successfully!', 'success');
+            } catch (error) {
+                showToast('Error adding blog post', 'error');
+            }
+        }
+
+        // Edit Review
+        let currentEditId = null;
+        let currentEditBlogId = null;
+        
+        async function editReview(id) {
+            try {
+                const reviews = await ainovaTrendAPI.getReviews();
+                const review = reviews.find(r => r.id == id);
+                
+                if (!review) {
+                    showToast('Review not found', 'error');
+                    return;
+                }
+                
+                currentEditId = id;
+                
+                const form = `
+                    <form id="reviewForm">
+                        <div class="form-group">
+                            <label>Software Name *</label>
+                            <input type="text" name="software_name" value="${review.software_name || ''}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Description *</label>
+                            <textarea name="description" rows="3" required>${review.description || ''}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Rating (1-5) *</label>
+                            <input type="number" name="rating" min="1" max="5" step="0.1" value="${review.rating || ''}" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Price</label>
+                            <input type="text" name="price" value="${review.price || ''}" placeholder="e.g., $20/month, Free">
+                        </div>
+                        <div class="form-group">
+                            <label>Category *</label>
+                            <select name="category" required>
+                                <option value="">Select Category</option>
+                                <option value="AI Tools" ${review.category === 'AI Tools' ? 'selected' : ''}>AI Tools</option>
+                                <option value="AI Marketing" ${review.category === 'AI Marketing' ? 'selected' : ''}>AI Marketing</option>
+                                <option value="AI" ${review.category === 'AI' ? 'selected' : ''}>AI</option>
+                                <option value="Productivity" ${review.category === 'Productivity' ? 'selected' : ''}>Productivity</option>
+                                <option value="Marketing" ${review.category === 'Marketing' ? 'selected' : ''}>Marketing</option>
+                                <option value="Business" ${review.category === 'Business' ? 'selected' : ''}>Business</option>
+                                <option value="Technology" ${review.category === 'Technology' ? 'selected' : ''}>Technology</option>
+                                <option value="Social Media" ${review.category === 'Social Media' ? 'selected' : ''}>Social Media</option>
+                                <option value="Analytics" ${review.category === 'Analytics' ? 'selected' : ''}>Analytics</option>
+                                <option value="Customer Service" ${review.category === 'Customer Service' ? 'selected' : ''}>Customer Service</option>
+                                <option value="SEO" ${review.category === 'SEO' ? 'selected' : ''}>SEO</option>
+                                <option value="E-commerce" ${review.category === 'E-commerce' ? 'selected' : ''}>E-commerce</option>
+                                <option value="Content Marketing" ${review.category === 'Content Marketing' ? 'selected' : ''}>Content Marketing</option>
+                                <option value="Future of Work" ${review.category === 'Future of Work' ? 'selected' : ''}>Future of Work</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Pros</label>
+                            <textarea name="pros" rows="2" placeholder="Separate with commas">${review.pros || ''}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Cons</label>
+                            <textarea name="cons" rows="2" placeholder="Separate with commas">${review.cons || ''}</textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Image URL</label>
+                            <input type="url" name="image_url" value="${review.image_url || ''}" placeholder="https://example.com/image.jpg">
+                        </div>
+                        <div class="form-group">
+                            <label>Product URL</label>
+                            <input type="url" name="product_url" value="${(review.product_url || review.link || (function(){ try { return localStorage.getItem(`product_url_${review.id}`) || '' } catch(e){ return '' } })())}" placeholder="https://example.com/product">
+                        </div>
+                        <div class="form-group">
+                            <label>Reviewer</label>
+                            <input type="text" name="reviewer" value="${review.reviewer || 'AinovaTrend Team'}">
+                        </div>
+                        <div class="form-group">
+                            <label>Status</label>
+                            <select name="status">
+                                <option value="Published" ${review.status === 'Published' ? 'selected' : ''}>Published</option>
+                                <option value="Draft" ${review.status === 'Draft' ? 'selected' : ''}>Draft</option>
+                            </select>
+                        </div>
+                        <div class="modal-buttons">
+                            <button type="button" class="btn btn-primary" onclick="updateReview()">Update</button>
+                            <button type="button" class="btn" onclick="closeModal()" style="background: #666;">Cancel</button>
+                        </div>
+                    </form>
+                `;
+                showModal('Edit Review', form);
+            } catch (error) {
+                showToast('Error loading review data', 'error');
+            }
+        }
+        
+        async function updateReview() {
+            const form = document.getElementById('reviewForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            const rawUrl = (data.product_url || '').trim();
+            if (rawUrl) { data.product_url = rawUrl; data.link = rawUrl; try { localStorage.setItem(`product_url_${currentEditId}`, rawUrl); } catch(e) {} } else { try { localStorage.removeItem(`product_url_${currentEditId}`); } catch(e) {} }
+            
+            try {
+                await ainovaTrendAPI.updateReview(currentEditId, data);
+                if (rawUrl) { try { localStorage.setItem(`product_url_${currentEditId}`, rawUrl); } catch (e) {} }
+                closeModal();
+                loadReviews();
+                showToast('Review updated successfully!', 'success');
+                currentEditId = null;
+            } catch (error) {
+                showToast('Error updating review', 'error');
+            }
+        }
+
+        // URL validation temporarily removed per request
+
+        // Edit Blog
+        async function editBlog(id) {
+            try {
+                const blogs = await ainovaTrendAPI.getBlogs();
+                const blog = blogs.find(b => b.id == id);
+                
+                if (!blog) {
+                    showToast('Blog post not found', 'error');
+                    return;
+                }
+                
+                currentEditBlogId = id;
+                
+                const form = `
+                    <form id="blogForm">
+                        <div class="form-group">
+                            <label for="title">Title *</label>
+                            <input type="text" id="title" name="title" value="${blog.title || ''}" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="excerpt">Excerpt</label>
+                            <textarea id="excerpt" name="excerpt" rows="3">${blog.excerpt || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="content">Content *</label>
+                            <textarea id="content" name="content" rows="8" required>${blog.content || ''}</textarea>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="image_url">Image URL</label>
+                                <input type="url" id="image_url" name="image_url" value="${blog.image_url || ''}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select id="category" name="category">
+                                    <option value="">Select Category</option>
+                                    <option value="AI Tools" ${blog.category === 'AI Tools' ? 'selected' : ''}>AI Tools</option>
+                                    <option value="AI Marketing" ${blog.category === 'AI Marketing' ? 'selected' : ''}>AI Marketing</option>
+                                    <option value="AI" ${blog.category === 'AI' ? 'selected' : ''}>AI</option>
+                                    <option value="Productivity" ${blog.category === 'Productivity' ? 'selected' : ''}>Productivity</option>
+                                    <option value="Marketing" ${blog.category === 'Marketing' ? 'selected' : ''}>Marketing</option>
+                                    <option value="Business" ${blog.category === 'Business' ? 'selected' : ''}>Business</option>
+                                    <option value="Technology" ${blog.category === 'Technology' ? 'selected' : ''}>Technology</option>
+                                    <option value="Social Media" ${blog.category === 'Social Media' ? 'selected' : ''}>Social Media</option>
+                                    <option value="Analytics" ${blog.category === 'Analytics' ? 'selected' : ''}>Analytics</option>
+                                    <option value="Customer Service" ${blog.category === 'Customer Service' ? 'selected' : ''}>Customer Service</option>
+                                    <option value="SEO" ${blog.category === 'SEO' ? 'selected' : ''}>SEO</option>
+                                    <option value="E-commerce" ${blog.category === 'E-commerce' ? 'selected' : ''}>E-commerce</option>
+                                    <option value="Content Marketing" ${blog.category === 'Content Marketing' ? 'selected' : ''}>Content Marketing</option>
+                                    <option value="Future of Work" ${blog.category === 'Future of Work' ? 'selected' : ''}>Future of Work</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="author">Author</label>
+                                <input type="text" id="author" name="author" value="${blog.author || ''}">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="tags">Tags</label>
+                                <input type="text" id="tags" name="tags" value="${blog.tags || ''}" placeholder="tag1, tag2, tag3">
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="featured">Featured</label>
+                                <select id="featured" name="featured">
+                                    <option value="FALSE" ${blog.featured === 'FALSE' ? 'selected' : ''}>No</option>
+                                    <option value="TRUE" ${blog.featured === 'TRUE' ? 'selected' : ''}>Yes</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select id="status" name="status">
+                                    <option value="Draft" ${blog.status === 'Draft' ? 'selected' : ''}>Draft</option>
+                                    <option value="Published" ${blog.status === 'Published' ? 'selected' : ''}>Published</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="form-actions">
+                            <button type="button" class="btn btn-primary" onclick="updateBlog()">Update</button>
+                            <button type="button" class="btn" onclick="closeModal()" style="background: #666;">Cancel</button>
+                        </div>
+                    </form>
+                `;
+                showModal('Edit Blog Post', form);
+            } catch (error) {
+                showToast('Error loading blog data', 'error');
+            }
+        }
+        
+        async function updateBlog() {
+            const form = document.getElementById('blogForm');
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            try {
+                await ainovaTrendAPI.updateBlog(currentEditBlogId, data);
+                closeModal();
+                loadBlogs();
+                showToast('Blog post updated successfully!', 'success');
+                currentEditBlogId = null;
+            } catch (error) {
+                showToast('Error updating blog post', 'error');
+            }
+        }
+
+        // Toast notification functions
+        function showToast(message, type = 'success', duration = 3000) {
+            // Remove existing toasts
+            const existingToasts = document.querySelectorAll('.toast');
+            existingToasts.forEach(toast => toast.remove());
+
+            // Create toast element
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            
+            const icons = {
+                success: '✅',
+                error: '❌',
+                info: 'ℹ️'
+            };
+            
+            toast.innerHTML = `
+                <div class="toast-content">
+                    <span class="toast-icon">${icons[type] || 'ℹ️'}</span>
+                    <span class="toast-message">${message}</span>
+                    <button class="toast-close" onclick="hideToast(this)">&times;</button>
+                </div>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Show toast
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+            
+            // Auto hide
+            if (duration > 0) {
+                setTimeout(() => {
+                    hideToast(toast);
+                }, duration);
+            }
+        }
+        
+        function hideToast(toastElement) {
+            const toast = toastElement.closest ? toastElement : toastElement;
+            toast.classList.remove('show');
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 300);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth();
+            loadDashboard();
+        });
+    </script>
+</body>
+</html>
+

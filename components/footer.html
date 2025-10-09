@@ -1,0 +1,171 @@
+<style>
+    /* Footer Styles */
+    .footer {
+        background: rgba(10, 10, 10, 0.95);
+        padding: 60px 0 0;
+        margin-top: 80px;
+        border-top: 1px solid rgba(255, 107, 53, 0.2);
+    }
+
+    .footer__content {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0 40px;
+        gap: 40px;
+    }
+
+    .footer__logo {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .footer__logo .logo__img {
+        height: 50px;
+        transition: transform 0.3s ease;
+    }
+
+    .footer__logo .logo__img:hover {
+        transform: scale(1.05);
+    }
+
+    .footer__slogan {
+        font-size: 1.4rem;
+        font-weight: 600;
+        color: #ff6b35;
+        text-shadow: 0 0 15px rgba(255, 107, 53, 0.3);
+        letter-spacing: 0.5px;
+        margin: 0;
+        white-space: nowrap;
+    }
+
+    .footer__contact {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .contact-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #cccccc;
+        font-size: 1.4rem;
+        transition: color 0.3s ease;
+    }
+
+    .contact-item:hover {
+        color: #ff6b35;
+    }
+
+    .contact-item i {
+        color: #ff6b35;
+        width: 20px;
+        font-size: 1.6rem;
+    }
+
+    .footer__social {
+        display: flex;
+        gap: 15px;
+        flex-wrap: wrap;
+    }
+
+    .footer__social-btn {
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+        color: #ffffff;
+        font-size: 1.6rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+    }
+
+    .footer__social-btn:hover {
+        transform: translateY(-3px);
+        border-color: currentColor;
+    }
+
+    /* YouTube - Red */
+    .footer__social-btn:nth-child(1):hover {
+        background: #FF0000;
+        border-color: #FF0000;
+        box-shadow: 0 8px 20px rgba(255, 0, 0, 0.4);
+    }
+
+    /* LinkedIn - Blue */
+    .footer__social-btn:nth-child(2):hover {
+        background: #0077B5;
+        border-color: #0077B5;
+        box-shadow: 0 8px 20px rgba(0, 119, 181, 0.4);
+    }
+
+    /* TikTok - Black/Pink */
+    .footer__social-btn:nth-child(3):hover {
+        background: #000000;
+        border-color: #FF0050;
+        box-shadow: 0 8px 20px rgba(255, 0, 80, 0.4);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+        .footer {
+            padding: 40px 0 0;
+            margin-top: 60px;
+        }
+
+        .footer__content {
+            flex-direction: column;
+            gap: 30px;
+            text-align: center;
+            padding: 0 0 30px;
+        }
+        
+        .footer__contact {
+            align-items: center;
+        }
+        
+        .contact-item {
+            justify-content: center;
+        }
+
+        .footer__social {
+            justify-content: center;
+        }
+    }
+</style>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <!-- logo -->
+            <div class="footer__logo">
+                <a href="./" class="logo">
+                    <img src="assets/images/logo.png" alt="AinovaTrend Logo" class="logo__img">
+                </a>
+                <p class="footer__slogan">Smarter Tools. Better Growth</p>
+            </div>
+            
+            <!-- contact info -->
+            <div class="footer__contact">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>founder@ainovatrend.com</span>
+                </div>
+            </div>
+            
+            <!-- social media -->
+            <div class="footer__social">
+                <a href="https://www.youtube.com/channel/UCvAO_xsqhD932ek3FHx57ZA" class="footer__social-btn" title="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.linkedin.com/in/ainovatrend-founder" class="footer__social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.tiktok.com/@ainovatrend?_t=ZN-90BZaVTRR8Y&_r=1" class="footer__social-btn" title="TikTok"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
